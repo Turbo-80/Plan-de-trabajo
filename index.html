@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan de Trabajo - Informática</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    :root {
+      --primary: #4338CA;
+      --primary-dark: #1E3A5F;
+      --bg: #0F172A;
+      --panel: #1E293B;
+      --text: #E2E8F0;
+      --muted: #94A3B8;
+      --border: #334155;
+      --danger: #EF4444;
+      --warning: #F59E0B;
+      --success: #10B981;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; }
+
+    header {
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+      padding: 24px 32px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    header h1 { margin: 0; font-size: 28px; display: flex; align-items: center; gap: 12px; }
+    header p { margin: 8px 0 0 0; color: var(--muted); font-size: 14px; }
+
+    .toolbar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    button:hover { background: #5B4BD4; transform: translateY(-1px); }
+    button.secondary { background: var(--panel); border: 1px solid var(--border); }
+    button.secondary:hover { background: #334155; }
+
+    .info-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .info-box strong { color: var(--text); }
+
+    .table-wrapper {
+      background: var(--panel);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      border: 1px solid var(--border);
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+
+    th {
+      background: var(--primary-dark);
+      color: white;
+      padding: 16px 12px;
+      text-align: left;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    td { padding: 14px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:hover td { background: rgba(255,255,255,0.03); }
+
+    .col-numero { width: 60px; text-align: center; color: var(--muted); font-weight: 600; }
+    .col-estado { width: 140px; }
+    .col-fecha { width: 150px; }
+
+    .estado-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      color: black;
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .estado-pendiente { background: var(--danger); }
+    .estado-proceso { background: var(--warning); }
+    .estado-completado { background: var(--success); }
+
+    .dato-vacio { color: var(--muted); font-style: italic; }
+
+    .leyenda { display: flex; gap: 16px; margin-top: 20px; flex-wrap: wrap; }
+
+    .badge {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      color: black;
+    }
+
+    .badge.pendiente { background: var(--danger); }
+    .badge.proceso { background: var(--warning); }
+    .badge.completado { background: var(--success); }
+
+    .footer { text-align: center; margin-top: 30px; color: var(--muted); font-size: 12px; }
+
+    @media (max-width: 900px) {
+      .table-wrapper { overflow-x: auto; }
+      table { min-width: 900px; }
+    }
+
+    @media (max-width: 700px) {
+      .table-wrapper { background: transparent; box-shadow: none; border: none; }
+      table, thead, tbody, th, td, tr { display: block; }
+      thead { display: none; }
+      tbody tr {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        margin-bottom: 16px;
+        padding: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      }
+      td {
+        border: none;
+        padding: 6px 0;
+        display: block;
+        text-align: left;
+      }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 600;
+        color: var(--muted);
+        font-size: 12px;
+        margin-bottom: 2px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      td.col-numero {
+        text-align: center;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 10px;
+        margin-bottom: 6px;
+      }
+      td.col-numero::before { display: none; }
+      td.col-estado {
+        text-align: center;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+      }
+      td.col-estado::before { display: none; }
+      .estado-badge { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>⚙️ Plan de Trabajo</h1>
+      <p>Movimientos y tareas de informática</p>
+    </header>
+
+    <div class="toolbar">
+      <button class="secondary" onclick="actualizarDatos()">🔄 Actualizar datos</button>
+      <button class="secondary" onclick="exportarExcel()">📊 Exportar Excel</button>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-numero">N°</th>
+            <th>Equipo / Usuario</th>
+            <th>Tarea</th>
+            <th>Detalle</th>
+            <th class="col-fecha">Fecha de inicio</th>
+            <th class="col-fecha">Fecha entrega</th>
+            <th class="col-estado">Estado</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-body">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="leyenda">
+      <span class="badge pendiente">Pendiente</span>
+      <span class="badge proceso">En proceso</span>
+      <span class="badge completado">Completado</span>
+    </div>
+
+    <div class="footer">
+      Sistema de gestión de tareas informáticas — Solo lectura
+    </div>
+  </div>
+
+  <script>
+    let datos = [];
+
+    function getClaseEstado(estado) {
+      if (estado === 'Pendiente') return 'estado-pendiente';
+      if (estado === 'En proceso') return 'estado-proceso';
+      if (estado === 'Completado') return 'estado-completado';
+      return '';
+    }
+
+    function formatearFecha(fechaStr) {
+      if (!fechaStr) return '';
+      const partes = fechaStr.split('-');
+      if (partes.length !== 3) return fechaStr;
+      return partes[2] + '/' + partes[1] + '/' + partes[0];
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function renderizar() {
+      const tbody = document.getElementById('tabla-body');
+      tbody.innerHTML = '';
+      datos.forEach(function(fila, index) {
+        const tr = document.createElement('tr');
+        const estadoClase = getClaseEstado(fila.estado);
+        tr.innerHTML =
+          '<td class="col-numero" data-label="N°">' + (index + 1) + '</td>' +
+          '<td data-label="Equipo / Usuario">' + (fila.equipo ? escapeHtml(fila.equipo) : '<span class="dato-vacio">—</span>') + '</td>' +
+          '<td data-label="Tarea">' + (fila.tarea ? escapeHtml(fila.tarea) : '<span class="dato-vacio">—</span>') + '</td>' +
+          '<td data-label="Detalle">' + (fila.detalle ? escapeHtml(fila.detalle) : '<span class="dato-vacio">—</span>') + '</td>' +
+          '<td class="col-fecha" data-label="Fecha de inicio">' + (fila.fecha ? formatearFecha(fila.fecha) : '<span class="dato-vacio">—</span>') + '</td>' +
+          '<td class="col-fecha" data-label="Fecha entrega">' + (fila.entrega ? formatearFecha(fila.entrega) : '<span class="dato-vacio">—</span>') + '</td>' +
+          '<td class="col-estado" data-label="Estado"><span class="estado-badge ' + estadoClase + '">' + escapeHtml(fila.estado) + '</span></td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    function exportarExcel() {
+      const filas = datos.map(function(f, i) {
+        return {
+          'N°': i + 1,
+          'Equipo / Usuario': f.equipo,
+          'Tarea': f.tarea,
+          'Detalle': f.detalle,
+          'Fecha de inicio': f.fecha,
+          'Fecha entrega': f.entrega,
+          'Estado': f.estado
+        };
+      });
+      const ws = XLSX.utils.json_to_sheet(filas);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Plan de Trabajo');
+      XLSX.writeFile(wb, 'Plan_Trabajo_Exportado.xlsx');
+    }
+
+    function cargarDatos() {
+      fetch('plan.json?v=' + Date.now(), { cache: 'no-store' })
+        .then(function(res) {
+          if (!res.ok) throw new Error('No se encontró plan.json');
+          return res.json();
+        })
+        .then(function(data) {
+          datos = data;
+          renderizar();
+        })
+        .catch(function(err) {
+          document.getElementById('tabla-body').innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:30px;">No se encontró el archivo plan.json. Guardá una copia desde el editor y subilo junto a este archivo.</td></tr>';
+        });
+    }
+
+    function actualizarDatos() {
+      cargarDatos();
+    }
+
+    cargarDatos();
+  </script>
+</body>
+</html>

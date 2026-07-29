@@ -1,0 +1,34 @@
+[
+  {
+    "equipo": "Nico Olaechea",
+    "tarea": "Instalacion S.O , NX Original , BACKUP",
+    "detalle": "PC NUEVA DISEÑO",
+    "fecha": "2026-07-28",
+    "entrega": "2026-07-31",
+    "estado": "En proceso"
+  },
+  {
+    "equipo": "Nacho Garcia ",
+    "tarea": "Instalacion S.O, NX Fuera red , ",
+    "detalle": "PC EX NICO",
+    "fecha": "2026-07-31",
+    "entrega": "2026-08-04",
+    "estado": "Pendiente"
+  },
+  {
+    "equipo": "Instalacion red Burbuja",
+    "tarea": "Identificacion de puestos ",
+    "detalle": "ARMADO DE SWICTH",
+    "fecha": "2026-07-31",
+    "entrega": "2026-07-31",
+    "estado": "Pendiente"
+  },
+  {
+    "equipo": "Mauricio",
+    "tarea": "Mauricio",
+    "detalle": "PC NUEVA I5",
+    "fecha": "2026-08-04",
+    "entrega": "2026-08-06",
+    "estado": "Pendiente"
+  }
+]
