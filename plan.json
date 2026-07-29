@@ -30,5 +30,13 @@
     "fecha": "2026-08-04",
     "entrega": "2026-08-06",
     "estado": "Pendiente"
+  },
+  {
+    "equipo": "PC Bruno",
+    "tarea": " Instalacion S.O, NX Fuera red , ",
+    "detalle": "VA PARA MATEO",
+    "fecha": "2026-08-07",
+    "entrega": "2026-08-10",
+    "estado": "Pendiente"
   }
 ]
