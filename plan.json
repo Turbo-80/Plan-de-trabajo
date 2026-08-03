@@ -38,5 +38,13 @@
     "fecha": "2026-08-07",
     "entrega": "2026-08-10",
     "estado": "Pendiente"
+  },
+  {
+    "equipo": "Patricia Morowiecki",
+    "tarea": "Instalacion S.O, cambio de Disco y agregar memoria",
+    "detalle": "NOTENBOOK",
+    "fecha": "2026-07-31",
+    "entrega": "2026-08-03",
+    "estado": "Completado"
   }
 ]
