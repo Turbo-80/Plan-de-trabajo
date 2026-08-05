@@ -13,7 +13,7 @@
     "detalle": "PC NUEVA I5",
     "fecha": "2026-07-31",
     "entrega": "2026-08-04",
-    "estado": "En proceso"
+    "estado": "Completado"
   },
   {
     "equipo": "Instalacion red Burbuja",
@@ -42,7 +42,7 @@
   {
     "equipo": "Patricia Morowiecki",
     "tarea": "Instalacion S.O, cambio de Disco y agregar memoria",
-    "detalle": "NOTEBOOK",
+    "detalle": "NOTENBOOK",
     "fecha": "2026-07-31",
     "entrega": "2026-08-03",
     "estado": "Completado"
