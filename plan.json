@@ -29,7 +29,7 @@
     "detalle": "PC EX NICO",
     "fecha": "2026-08-04",
     "entrega": "2026-08-06",
-    "estado": "En proceso"
+    "estado": "Completado"
   },
   {
     "equipo": "PC Bruno",
@@ -37,7 +37,7 @@
     "detalle": "VA PARA MATEO",
     "fecha": "2026-08-07",
     "entrega": "2026-08-10",
-    "estado": "En proceso"
+    "estado": "Completado"
   },
   {
     "equipo": "Patricia Morowiecki",
@@ -53,6 +53,14 @@
     "detalle": "PC",
     "fecha": "2026-08-07",
     "entrega": "2026-08-13",
+    "estado": "Completado"
+  },
+  {
+    "equipo": "SERVIDOR Dropbox",
+    "tarea": "",
+    "detalle": "",
+    "fecha": "2026-08-11",
+    "entrega": "2026-08-14",
     "estado": "En proceso"
   }
 ]
